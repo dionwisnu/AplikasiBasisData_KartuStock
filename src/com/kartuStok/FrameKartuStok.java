@@ -354,15 +354,20 @@ public class FrameKartuStok extends javax.swing.JFrame {
 
         tabelKartuStok.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Tanggal", "No. Bukti", "Keterangan", "Masuk", "Keluar", "Saldo"
+                "Tanggal", "No. Bukti", "Keterangan", "Masuk", "Keluar", "Saldo"
             }
         ));
+        tabelKartuStok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKartuStokMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelKartuStok);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -494,7 +499,7 @@ public class FrameKartuStok extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(185, 185, 185)
                 .addComponent(jLabel17)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,7 +565,7 @@ public class FrameKartuStok extends javax.swing.JFrame {
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 95, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel16Layout.createSequentialGroup()
                     .addContainerGap()
@@ -672,8 +677,8 @@ public class FrameKartuStok extends javax.swing.JFrame {
 
     private void buttonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKeluarActionPerformed
         // TODO add your handling code here:
-//        this.dispose();
-        System.exit(0);
+        this.dispose();
+//        System.exit(0);
     }//GEN-LAST:event_buttonKeluarActionPerformed
 
     private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
@@ -890,6 +895,24 @@ public class FrameKartuStok extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Pilih Data yang Akan Dihapus");
         }
     }//GEN-LAST:event_buttonHapusActionPerformed
+
+    private void tabelKartuStokMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKartuStokMouseClicked
+        int baris = tabelKartuStok.getSelectedRow();
+        String tanggal = tabelKartuStok.getValueAt(baris, 0).toString();
+        String noBukti = tabelKartuStok.getValueAt(baris, 1).toString();
+        String keterangan = tabelKartuStok.getValueAt(baris, 2).toString();
+        String masuk = tabelKartuStok.getValueAt(baris, 3).toString();
+        String keluar = tabelKartuStok.getValueAt(baris, 4).toString();
+        String saldo = tabelKartuStok.getValueAt(baris, 5).toString();
+        pilihTanggal.setDate(null);
+        tfNoBukti.setText(noBukti);
+        tfKeterangan.setText(keterangan);
+        tfMasuk.setText(masuk);
+        tfKeluar.setText(saldo);
+        buttonSimpan.setText("Update");
+//        textKodeKategori.setText(kode);
+//        textNamaKategori.setText(nama);
+    }//GEN-LAST:event_tabelKartuStokMouseClicked
 
     public void tampilKartuStock() {
         try {
