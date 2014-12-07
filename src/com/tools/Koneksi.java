@@ -24,17 +24,9 @@ public class Koneksi {
     String sqlString;
 
     public static Connection getDBConnection() {
-//        String jdbcUrl = "jdbc:oracle:thin:@172.23.9.185:1521:orcl";
-//        String userid = "mhs125314059";
-//        String password = "mhs125314059";
-
-    String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-    String userid = "hr";
-    String password = "hr";
-//        Login log = new Login();
-//        String jdbcUrl = log.getUsername();
-//        String userid = log.getPassword();
-//        String password = log.getUrl();
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+        String userid = "hr";
+        String password = "hr";
 
         Connection conn = null;
         try {
@@ -49,18 +41,38 @@ public class Koneksi {
         return conn;
     }
 
-//    public void close() {
-//        Connection conn=null;
+    public static Connection getLocalDBConnection(String username, String pass, String url) throws SQLException{
+        String jdbcUrl = "jdbc:oracle:thin:@"+url+":1521:xe";
+        String userid = username;
+        String password = pass;
+
+        Connection conn = null;
 //        try {
-//            conn.close();
-//            System.out.println("Database clossed");
+            OracleDataSource ds;
+            ds = new OracleDataSource();
+            ds.setURL(jdbcUrl);
+            conn = ds.getConnection(userid, password);
+            System.out.println("Koneksi sip no...");
 //        } catch (SQLException ex) {
-//            System.out.println("Tidak bisa tutup koneksi");
+//            System.out.println("Belum Terkoneksi");
 //        }
-//    }
-//    
-//    public static void main(String[] args) {
-//        Koneksi dc = new Koneksi();
-//        dc.getDBConnection();
-//    }
+        return conn;
+    }
+
+    public static Connection getLabDBConnection(String username, String pass, String url) throws SQLException{
+        String jdbcUrl = "jdbc:oracle:thin:@" + url + ":1521:orcl";
+        String userid = username;
+        String password = pass;
+        Connection conn = null;
+//        try {
+            OracleDataSource ds;
+            ds = new OracleDataSource();
+            ds.setURL(jdbcUrl);
+            conn = ds.getConnection(userid, password);
+            System.out.println("Koneksi sip no...");
+//        } catch (SQLException ex) {
+//            System.out.println("Belum Terkoneksi");
+//        }
+        return conn;
+    }
 }

@@ -4,7 +4,10 @@
  */
 package Login;
 
+import com.MenuUtama.FrameMenuUtama;
 import com.tools.*;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -233,15 +236,42 @@ public class LoginFrameForm extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        Login log = new Login();
-        log.setUsername(tfUsername.getText());
-        log.setPassword(tfPassword.getText());
-        log.setUrl(tfUrl.getText());
-        System.out.println("username : "+log.getUsername());
-        System.out.println("pass : "+log.getPassword());
-        System.out.println("url : "+log.getUrl());
-        Koneksi dc = new Koneksi();
-//        dc.getDBConnection(log.getUsername(), log.getPassword(), log.getUrl());
+        String uName = tfUsername.getText();
+        String pass = tfPassword.getText();
+        String url = tfUrl.getText();
+
+        if (url.equals("172.23.9.185")) {
+            try {
+                Koneksi.getLabDBConnection(uName, pass, url);
+                JOptionPane.showMessageDialog(this, "Login Berhasil");
+                this.dispose();
+                FrameMenuUtama fMU = new FrameMenuUtama();
+                fMU.setVisible(true);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Login Gagal", "Error", JOptionPane.WARNING_MESSAGE);
+                tfPassword.setText("");
+                tfUrl.setText("");
+                tfUsername.setText("");
+            }
+        } else if (url.equals("localhost")) {
+            try {
+                Koneksi.getLocalDBConnection(uName, pass, url);
+                JOptionPane.showMessageDialog(this, "Login Berhasil");
+                this.dispose();
+                FrameMenuUtama fMU = new FrameMenuUtama();
+                fMU.setVisible(true);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Login Gagal", "Error", JOptionPane.WARNING_MESSAGE);
+                tfPassword.setText("");
+                tfUrl.setText("");
+                tfUsername.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Login Gagal", "Error", JOptionPane.WARNING_MESSAGE);
+            tfPassword.setText("");
+            tfUrl.setText("");
+            tfUsername.setText("");
+        }
     }//GEN-LAST:event_buttonLoginActionPerformed
 
     private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed

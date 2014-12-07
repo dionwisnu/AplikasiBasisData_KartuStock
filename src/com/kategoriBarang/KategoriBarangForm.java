@@ -4,7 +4,6 @@
  */
 package com.kategoriBarang;
 
-import Login.Login;
 import com.tools.Koneksi;
 import java.sql.SQLException;
 import java.util.List;
@@ -330,20 +329,25 @@ public class KategoriBarangForm extends javax.swing.JFrame {
     }//GEN-LAST:event_textNamaKategoriActionPerformed
 
     private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
-//        JOptionPane.showConfirmDialog(rootPane, "Anda yakin ingin hapus data?");
-//        if (JOptionPane.YES_OPTION)
-        try {
-            String key = textKodeKategori.getText();
-            KategoriKontrol.getKoneksiKategori().HapusKategori(key);
-            JOptionPane.showMessageDialog(rootPane, "Data Berhasil Dihapus");
-            textKodeKategori.requestFocus();
-            LihatKategori();
-            textKodeKategori.setText("");
-            textNamaKategori.setText("");
+        String kode = textKodeKategori.getText();
+        int reply = JOptionPane.showConfirmDialog(null, "Hapus Kategori Barang, Kode " + kode, "Hapus Data", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                String key = textKodeKategori.getText();
+                KategoriKontrol.getKoneksiKategori().HapusKategori(key);
+                JOptionPane.showMessageDialog(rootPane, "Data Berhasil Dihapus");
+                textKodeKategori.requestFocus();
+                LihatKategori();
+                textKodeKategori.setText("");
+                textNamaKategori.setText("");
+                tombolUpdate.setEnabled(false);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(KategoriBarangForm.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(KategoriBarangForm.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Data Tidak Dihapus");
         }
     }//GEN-LAST:event_tombolHapusActionPerformed
 
@@ -401,7 +405,7 @@ public class KategoriBarangForm extends javax.swing.JFrame {
         if (evt.getKeyCode() == 10) {
             textNamaKategori.requestFocus();
             tombolSimpan.setEnabled(true);
-            
+
         }
     }//GEN-LAST:event_textNamaKategoriKeyPressed
 

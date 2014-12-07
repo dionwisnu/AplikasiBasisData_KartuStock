@@ -697,6 +697,7 @@ public class FrameKartuStok extends javax.swing.JFrame {
             ks.setKeterangan(tfKeterangan.getText());
             ks.setMasuk(Double.parseDouble(tfMasuk.getText()));
             ks.setKeluar(Double.parseDouble(tfKeluar.getText()));
+            System.out.println(tglbaru);
 
             try {
                 KartuStokKontrol kskontrol = KartuStokKontrol.getKoneksiKartuStok();
@@ -743,6 +744,8 @@ public class FrameKartuStok extends javax.swing.JFrame {
                     internalFrameCariBarang.setVisible(true);
                     //JOptionPane.showMessageDialog(null, "HELLO");
                 } else {
+                    tfKodeBarang.setText("");
+                    tfNamaBarang.setText("");
                     //JOptionPane.showMessageDialog(null, "GOODBYE");
                 }
             }

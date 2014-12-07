@@ -944,7 +944,7 @@ public class BarangForm extends javax.swing.JFrame {
         try {
             String kodeBrg = tfKodeBarang.getText();
             String namaBrg = tfNamaBarang.getText();
-            String kategoriBrg = comboKategori.getSelectedItem().toString().substring(4);
+            String kategoriBrg = comboKategori.getSelectedItem().toString().substring(0, 3);
             String satuanBrg = comboSatuan.getSelectedItem().toString();
             String qtyMax = tfQtyMax.getText();
             String qtyMin = tfQtyMin.getText();
@@ -957,7 +957,7 @@ public class BarangForm extends javax.swing.JFrame {
             KategoriBarang katBrg = new KategoriBarang();
             brg.setKodeBarang(kodeBrg);
             brg.setNamaBarang(namaBrg);
-            katBrg.setNamaKategori(kategoriBrg);
+            katBrg.setKodeKategori(kategoriBrg);
             brg.setKategori(katBrg);
             brg.setSatuan(satuanBrg);
             brg.setQtyMax(qtyMax);
@@ -1235,14 +1235,13 @@ public class BarangForm extends javax.swing.JFrame {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(kodeAwal, kodeAwal);
         params.put(kodeAkhir, kodeAkhir);
+        
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportSource, params, kon);
             JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException ex) {
             ex.printStackTrace();
         }
-
-
     }//GEN-LAST:event_buttonCetakGroupActionPerformed
 
     private void ButtonCetakDaftarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCetakDaftarMenuActionPerformed

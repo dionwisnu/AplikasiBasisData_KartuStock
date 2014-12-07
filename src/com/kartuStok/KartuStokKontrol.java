@@ -167,6 +167,7 @@ public class KartuStokKontrol {
     
     public void cetakTabelKartuStok(JTable table){
         String reportSource = "./KartuStok/KartuStok.jasper";
+//        String reportSource = "./KartuStok/KartuStok.jrxml";       
         Map<String, Object> params = new HashMap<String, Object>();
         try {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reportSource, params, new JRTableModelDataSource(table.getModel()));

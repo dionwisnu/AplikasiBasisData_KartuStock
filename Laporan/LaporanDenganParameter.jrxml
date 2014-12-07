@@ -29,7 +29,9 @@
 	<parameter name="kodeakhir" isForPrompting="true" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<queryString><![CDATA[select * from barang order by kode_barang]]></queryString>
+	<queryString><![CDATA[select * from barang
+where kode_barang between $P{kodeawal} and $P{kodeakhir} 
+order by kode_barang]]></queryString>
 
 	<field name="NAMA_BARANG" class="java.lang.String"/>
 	<field name="KODE_BARANG" class="java.lang.String"/>

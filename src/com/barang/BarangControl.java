@@ -47,7 +47,7 @@ public class BarangControl {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, barang.getNamaBarang());
             pstmt.setString(2, barang.getKodeBarang());
-            pstmt.setString(3, barang.getKategori().getNamaKategori());
+            pstmt.setString(3, barang.getKategori().getKodeKategori());
             pstmt.setString(4, barang.getSatuan());
             pstmt.setString(5, barang.getQtyMax());
             pstmt.setString(6, barang.getQtyMin());
@@ -127,7 +127,7 @@ public class BarangControl {
         ResultSet result = null;
         try {
             conn.setAutoCommit(false);
-            statement = conn.prepareStatement("select * from barang where kode_barang=" + kode + ";");
+            statement = conn.prepareStatement("select * from barang where kode_barang like '" + kode + "%'");
             result = statement.executeQuery();
             List<Barang> cariBarang = new ArrayList<Barang>();
             while (result.next()) {
@@ -135,7 +135,7 @@ public class BarangControl {
                 KategoriBarang katBrg = new KategoriBarang();
                 listBrg.setKodeBarang(result.getString("kode_barang"));
                 listBrg.setNamaBarang(result.getString("nama_barang"));
-                katBrg.setNamaKategori(result.getString("kategori"));
+                katBrg.setKodeKategori(result.getString("kategori"));
                 listBrg.setKategori(katBrg);
                 listBrg.setSatuan(result.getString("satuan"));
                 listBrg.setRitelSetelahPpn(result.getString("ritel_setelah_ppn"));
@@ -146,19 +146,7 @@ public class BarangControl {
             return cariBarang;
         } catch (SQLException exception) {
             throw exception;
-        } finally {
-            try {
-                conn.setAutoCommit(true);
-                if (result != null) {
-                    result.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException exception) {
-                throw exception;
-            }
-        }
+        } 
     }
 
     public String showMaxKodeBarang(String kodeKategori) throws SQLException {
